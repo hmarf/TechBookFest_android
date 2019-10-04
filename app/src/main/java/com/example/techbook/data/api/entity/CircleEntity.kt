@@ -10,6 +10,8 @@ data class CircleEntityResult (
 )
 
 data class CircleEntity(
+    @Json(name = "id")
+    val id: Int,
     @Json(name = "CircleURL")
     val circleURL: String,
     @Json(name = "Circle")

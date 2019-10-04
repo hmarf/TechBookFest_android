@@ -9,11 +9,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="swift"
             android:ems="10"
             android:id="@+id/searchKey"
             tools:ignore="MissingConstraints" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="44dp" android:layout_marginStart="44dp" android:layout_marginTop="12dp"
+            android:layout_marginStart="44dp" android:layout_marginTop="12dp"
             app:layout_constraintTop_toTopOf="parent"/>
     <Button
             android:text="Button"

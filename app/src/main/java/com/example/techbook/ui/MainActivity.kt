@@ -1,11 +1,25 @@
 package com.example.techbook.ui
 
 import android.os.Bundle
+import android.webkit.WebViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.techbook.R
+import kotlinx.android.synthetic.main.fragment_web_view.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), webView.Listner {
+
+    override fun move_to_WebView(url: String){
+        val bundle = Bundle()
+        bundle.putString("URL", url)
+        val fragment = webView()
+        fragment.setArguments(bundle)
+        val fragmentManager = this.getSupportFragmentManager()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -34,8 +48,21 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frameLayout, allCircleFragment())
-            .commit()
+        val text = intent.getStringExtra("action")
+        if( text == "webview"){
+            val url = intent.getStringExtra("URL")
+            val bundle = Bundle()
+            bundle.putString("URL", url)
+            val fragment = webView()
+            fragment.setArguments(bundle)
+            navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit()
+        } else{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, allCircleFragment())
+                .commit()
+        }
     }
 }
