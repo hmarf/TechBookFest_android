@@ -21,7 +21,9 @@ class CircleViewModel (application: Application): AndroidViewModel(application){
 
     fun insertData(circle: CircleDB){
         viewModelScope.launch {
-            circleDao.insertNewData(circle)
+            if( circleDao.isEmpty(circle.uid) == 0 ){
+                circleDao.insertNewData(circle)
+            }
         }
     }
 

@@ -53,6 +53,9 @@ class CircleRecyclerViewAdapter (private val context: Context):
         holder.likeButton.setOnClickListener {
             circleViewModel.insertData(convertData(mCircleData[position]))
         }
+        holder.circleImage.setOnClickListener {
+            circleViewModel.insertData(convertData(mCircleData[position]))
+        }
     }
 
     class QiitaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -95,7 +98,7 @@ class CircleRecyclerViewAdapter (private val context: Context):
         returnData!!.content = data.content
         return returnData
     }
-    
+
 }
 
 

@@ -49,6 +49,7 @@ class allCircleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = CircleRecyclerViewAdapter(view!!.context)
+
         val userViewModel = ViewModelProviders.of(this).get(CircleViewModel::class.java)
         adapter.putView(userViewModel)
 

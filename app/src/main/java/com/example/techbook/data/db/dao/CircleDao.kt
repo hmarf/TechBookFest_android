@@ -18,4 +18,8 @@ interface CircleDao {
 
     @Query("DELETE FROM circledb WHERE uid = :id")
     suspend fun deleteData(id: Int)
+
+    @Query("SELECT COUNT(*) FROM circledb WHERE uid = :id")
+    suspend fun isEmpty(id: Int):Int
+
 }
