@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.example.techbook.R
 import com.example.techbook.adapter.CircleRecyclerViewAdapter
 import com.example.techbook.data.api.entity.CircleEntityResult
 import com.example.techbook.data.api.service.CircleService
+import com.example.techbook.viewmodel.CircleViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +50,9 @@ class searchBottonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = CircleRecyclerViewAdapter(view!!.context)
+
+        val userViewModel = ViewModelProviders.of(this).get(CircleViewModel::class.java)
+        adapter.putView(userViewModel)
 
         val listView = view.findViewById<RecyclerView>(R.id.circleSearch)
 

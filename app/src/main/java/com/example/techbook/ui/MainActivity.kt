@@ -1,18 +1,16 @@
 package com.example.techbook.ui
 
 import android.os.Bundle
-import android.webkit.WebViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.techbook.R
-import kotlinx.android.synthetic.main.fragment_web_view.*
 
-class MainActivity : AppCompatActivity(), webView.Listner {
+class MainActivity : AppCompatActivity(), webViewFragment.Listner {
 
     override fun move_to_WebView(url: String){
         val bundle = Bundle()
         bundle.putString("URL", url)
-        val fragment = webView()
+        val fragment = webViewFragment()
         fragment.setArguments(bundle)
         val fragmentManager = this.getSupportFragmentManager()
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -36,6 +34,9 @@ class MainActivity : AppCompatActivity(), webView.Listner {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, likeCircleFragment())
+                    .commit()
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), webView.Listner {
             val url = intent.getStringExtra("URL")
             val bundle = Bundle()
             bundle.putString("URL", url)
-            val fragment = webView()
+            val fragment = webViewFragment()
             fragment.setArguments(bundle)
             navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
             supportFragmentManager.beginTransaction()

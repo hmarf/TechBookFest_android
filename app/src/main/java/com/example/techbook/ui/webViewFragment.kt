@@ -16,7 +16,7 @@ import com.example.techbook.R
 import com.example.techbook.adapter.CircleRecyclerViewAdapter
 import kotlin.concurrent.thread
 
-class webView : Fragment() {
+class webViewFragment : Fragment() {
 
     interface Listner{
         fun move_to_WebView(url: String)
