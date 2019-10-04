@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
 import com.example.techbook.adapter.CircleRecyclerViewAdapter
 import com.example.techbook.data.api.entity.CircleEntity
+import com.example.techbook.data.api.entity.CircleEntityResult
 import com.example.techbook.data.api.service.CircleService
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,29 +54,37 @@ class allCircleFragment : Fragment() {
         listView.addItemDecoration(decor)
         listView.adapter = adapter
         listView.layoutManager = LinearLayoutManager(view.context)
-        Log.v("aaaa","bbbb")
 
-        fetchItems()
+        thread {
+            fetchItems(){
+                itemList -> adapter.setQiitaData(itemList.result)
+            }
+        }
 
     }
 
-    private fun fetchItems() {
+    private fun fetchItems(callback: (CircleEntityResult) -> Unit) {
 
-        circleInterface.circleAll().enqueue(object : Callback<List<CircleEntity>> {
-            override fun onFailure(call: Call<List<CircleEntity>>?, t: Throwable?) {
+        circleInterface.circleAll().enqueue(object : Callback<CircleEntityResult> {
+            override fun onFailure(call: Call<CircleEntityResult>?, t: Throwable?) {
                 Log.d("fetchItems", "response fail")
                 Log.d("fetchItems", "throwable :$t")
             }
 
-            override fun onResponse(call: Call<List<CircleEntity>>?, response: Response<List<CircleEntity>>) {
+            override fun onResponse(call: Call<CircleEntityResult>?, response: Response<CircleEntityResult>) {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         Log.d("fetchItems", "response success")
-                        var items = mutableListOf<String>()
-
-                        for (item in it) {
-                            items.add(item.title)
+                        response.body()?.let {
+                            callback(it)
                         }
+                        var items = mutableListOf<String>()
+                        /*itemRepository.getAllCircle() { itemList ->
+                            adapter.setQiitaData(itemList)
+                        }*/
+                        /*for (item in it) {
+                            items.add(item.title)
+                        }*/
                     }
                 }
                 Log.d("fetchItems", "response code:" + response.code())

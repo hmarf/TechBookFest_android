@@ -34,5 +34,8 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frameLayout, allCircleFragment())
+            .commit()
     }
 }

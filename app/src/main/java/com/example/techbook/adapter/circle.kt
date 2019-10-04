@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
 import com.example.techbook.data.api.entity.CircleEntity
+import com.example.techbook.data.api.entity.CircleEntityResult
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.circle.view.*
 
@@ -27,7 +28,7 @@ class CircleRecyclerViewAdapter (private val context: Context):
         val imagepath = mCircleData[position].circleImage
         Picasso.get()
             .load(imagepath)
-            .resize(100, 100)
+            .resize(70, 100)
             .centerCrop()
             .into(holder.circleImage)
 
