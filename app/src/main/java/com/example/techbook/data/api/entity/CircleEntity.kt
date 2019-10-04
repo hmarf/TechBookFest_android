@@ -2,6 +2,11 @@ package com.example.techbook.data.api.entity
 
 import com.squareup.moshi.Json
 
+data class CircleEntityResult (
+    @Json(name = "result")
+    val result: List<CircleEntity>
+)
+
 data class CircleEntity(
     @Json(name = "CircleURL")
     val circleURL: String,

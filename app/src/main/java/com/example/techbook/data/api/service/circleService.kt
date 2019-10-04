@@ -13,77 +13,29 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CircleService {
-
-    companion object {
-
-    }
+interface CircleInterface {
 
     @GET("/")
-    fun circleAll(
-    ): Call<List<CircleEntity>>
+    fun circleAll(): Call<List<CircleEntity>>
 
     @GET("/searchCircle")
     fun circleSearch(
-        @Query("keyword") keyword: String
-    ): Call<List<CircleEntity>>
+        @Query("keyword")
+        keyword: String): Call<List<CircleEntity>>
 }
 
 
-class CircleRepository() {
+fun CircleService(): CircleInterface {
 
-    private var circleService: CircleService
+    val url = "http://192.168.1.3:9000"
+    val okHttpClient = OkHttpClient.Builder().build()
+    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val retrofit = Retrofit.Builder()
+        .baseUrl(url)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .client(okHttpClient)
+        .build()
 
-    init {
-        val url = "http://192.168.1.3:9000"
-        val okHttpClient = OkHttpClient.Builder().build()
-        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(okHttpClient)
-            .build()
-        circleService = retrofit.create(CircleService::class.java)
-    }
-
-    // エラー処理は省いています
-    fun getAllCircle(callback: (List<CircleEntity>) -> Unit) {
-        Log.v("ccccc","aaa")
-        circleService.circleAll().enqueue(object : Callback<List<CircleEntity>> {
-
-            override fun onResponse(call: Call<List<CircleEntity>>?, response: Response<List<CircleEntity>>?) {
-                Log.v("ok","ok")
-                response?.let {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            Log.v("ok",it.toString())
-                            callback(it)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<CircleEntity>>?, t: Throwable?) {
-                Log.v("nnn","nnn")
-            }
-        })
-    }
-
-    fun getSearchCircle(keyword: String, callback: (List<CircleEntity>) -> Unit) {
-        circleService.circleSearch(keyword = keyword).enqueue(object : Callback<List<CircleEntity>> {
-
-            override fun onResponse(call: Call<List<CircleEntity>>?, response: Response<List<CircleEntity>>?) {
-                response?.let {
-                    if (response.isSuccessful) {
-                        response.body()?.let {
-                            callback(it)
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<CircleEntity>>?, t: Throwable?) {}
-        })
-    }
+    return retrofit.create(CircleInterface::class.java)
 
 }
