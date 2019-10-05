@@ -23,7 +23,7 @@ interface CircleInterface {
 
 fun CircleService(): CircleInterface {
 
-    val url = "http://192.168.1.3:9000"
+    val url = "http://192.168.0.7:9000"
     val okHttpClient = OkHttpClient.Builder().build()
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
