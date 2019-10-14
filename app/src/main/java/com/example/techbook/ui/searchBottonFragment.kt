@@ -89,13 +89,6 @@ class searchBottonFragment : Fragment() {
                         response.body()?.let {
                             callback(it)
                         }
-                        var items = mutableListOf<String>()
-                        /*itemRepository.getAllCircle() { itemList ->
-                            adapter.setQiitaData(itemList)
-                        }*/
-                        /*for (item in it) {
-                            items.add(item.title)
-                        }*/
                     }
                 }
                 Log.d("fetchItems", "response code:" + response.code())
