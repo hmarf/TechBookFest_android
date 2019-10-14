@@ -50,9 +50,6 @@ class CircleRecyclerViewAdapter (private val context: Context):
             intent.putExtra("URL", url)
             context.startActivity(intent)
         }
-        holder.likeButton.setOnClickListener {
-            circleViewModel.insertData(convertData(mCircleData[position]))
-        }
         holder.circleImage.setOnClickListener {
             circleViewModel.insertData(convertData(mCircleData[position]))
         }
@@ -64,7 +61,6 @@ class CircleRecyclerViewAdapter (private val context: Context):
         // val circleName = view.findViewById<TextView>(R.id.circleName)
         val bookTitle = view.findViewById<TextView>(R.id.bookTitle)
         val bookContent = view.findViewById<TextView>(R.id.bookContent)
-        val likeButton = view.findViewById<ImageView>(R.id.likeButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QiitaViewHolder =
