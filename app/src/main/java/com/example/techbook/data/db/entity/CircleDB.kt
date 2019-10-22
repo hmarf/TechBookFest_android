@@ -6,32 +6,32 @@ import androidx.room.PrimaryKey
 
 
 @Entity// (tableName = "user")
-class CircleDB {
+data class CircleDB(
 
     @PrimaryKey
-    var uid: Int = 0
+    var uid: Int = 0,
 
     @ColumnInfo(name = "circleURL")
-    var circleURL: String = ""
+    var circleURL: String = "",
 
     @ColumnInfo(name = "circle")
-    var circle: String = ""
+    var circle: String = "",
 
     @ColumnInfo(name = "circleImage")
-    var circleImage: String = ""
+    var circleImage: String = "",
 
     @ColumnInfo(name = "arr")
-    var arr: String = ""
+    var arr: String = "",
 
     @ColumnInfo(name = "genere")
-    var genere: String = ""
+    var genere: String = "",
 
     @ColumnInfo(name = "keyword")
-    var keyword: String = ""
+    var keyword: String = "",
 
     @ColumnInfo(name = "title")
-    var title: String = ""
+    var title: String = "",
 
     @ColumnInfo(name = "content")
     var content: String? = null
-}
+)
