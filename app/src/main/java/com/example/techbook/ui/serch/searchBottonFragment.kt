@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.techbook.R
+import com.example.techbook.data.api.entity.CircleEntity
 import com.example.techbook.ui.adapter.CircleAPIRecyclerViewAdapter
 import com.example.techbook.data.api.entity.CircleEntityResult
 import com.example.techbook.data.api.service.circleService
 import com.example.techbook.viewmodel.CircleViewModel
 import kotlin.concurrent.thread
 
-class searchBottonFragment : Fragment() {
+class searchBottonFragment : Fragment(), CircleAPIRecyclerViewAdapter.Listener {
 
     private val circleInterface by lazy { circleService() }
 
@@ -42,7 +43,7 @@ class searchBottonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CircleAPIRecyclerViewAdapter(view!!.context)
+        val adapter = CircleAPIRecyclerViewAdapter(this)
 
         val userViewModel = ViewModelProviders.of(this).get(CircleViewModel::class.java)
         adapter.putView(userViewModel)
@@ -68,7 +69,7 @@ class searchBottonFragment : Fragment() {
     }
 
     private fun SearchBook(callback: (CircleEntityResult) -> Unit) {
-
+        // TODO AllCircleみたいにViewModelに切り分けて非同期で呼ぶ
 //        circleInterface.circleSearch(keyword).enqueue(object : Callback<CircleEntityResult> {
 //            override fun onFailure(call: Call<CircleEntityResult>?, t: Throwable?) {
 //                Log.d("fetchItems", "response fail")
@@ -90,4 +91,7 @@ class searchBottonFragment : Fragment() {
 //        })
     }
 
+    override fun onClickImage(circle: CircleEntity) {
+        // TODO AllCircleみたいにViewModel作ってDBに入れる
+    }
 }

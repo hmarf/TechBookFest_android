@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.techbook.R
+import com.example.techbook.data.api.entity.CircleEntity
 import com.example.techbook.ui.adapter.CircleAPIRecyclerViewAdapter
 import com.example.techbook.data.api.service.CircleInterface
 import com.example.techbook.data.api.service.circleService
@@ -19,21 +20,17 @@ import com.example.techbook.data.db.AppDatabase
 import kotlinx.android.synthetic.main.fragment_all_circle.*
 import java.lang.IllegalArgumentException
 
-class AllCircleFragment : Fragment() {
+class AllCircleFragment : Fragment(), CircleAPIRecyclerViewAdapter.Listener {
 
     private val circleInterface by lazy { circleService() }
     private val appDatabase by lazy { AppDatabase.get(requireContext()) }
-    private val viewModelFactory by lazy {
-        Factory(
-            circleInterface,
-            appDatabase
-        )
-    }
+    private val viewModelFactory by lazy { Factory(circleInterface, appDatabase) }
     private lateinit var viewModel: AllCircleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(AllCircleViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(AllCircleViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -53,9 +50,7 @@ class AllCircleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CircleAPIRecyclerViewAdapter(requireContext())
-
-//        adapter.putView(viewModel)
+        val adapter = CircleAPIRecyclerViewAdapter(this)
 
         val decor = DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL)
         circleList.apply {
@@ -72,20 +67,23 @@ class AllCircleFragment : Fragment() {
         }
     }
 
+    //ViewModelに引数を渡すために作成
     class Factory(
         private val circleInterface: CircleInterface,
         private val appDatabase: AppDatabase
-    ) : ViewModelProvider.Factory{
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(AllCircleViewModel::class.java)){
-                return AllCircleViewModel(
-                    circleInterface,
-                    appDatabase
-                ) as T
+            if (modelClass.isAssignableFrom(AllCircleViewModel::class.java)) {
+                return AllCircleViewModel(circleInterface, appDatabase) as T
             }
             throw IllegalArgumentException("Unknown class name")
         }
 
+    }
+
+    //viewModelをAdapterに持たせない設計にしてみたためFragmentでコールバックを実装
+    override fun onClickImage(circle: CircleEntity) {
+        viewModel.insertLikeCircle(circle)
     }
 }
