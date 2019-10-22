@@ -1,4 +1,4 @@
-package com.example.techbook.ui
+package com.example.techbook.ui.all
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,6 @@ import com.example.techbook.data.api.entity.CircleEntity
 import com.example.techbook.data.api.service.CircleInterface
 import com.example.techbook.data.db.AppDatabase
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class AllCircleViewModel(
     private val circleInterface: CircleInterface,

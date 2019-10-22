@@ -1,4 +1,4 @@
-package com.example.techbook.adapter
+package com.example.techbook.ui.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
-import com.example.techbook.data.api.entity.CircleEntity
 import com.example.techbook.data.db.entity.CircleDB
 import com.example.techbook.ui.MainActivity
 import com.squareup.picasso.Picasso

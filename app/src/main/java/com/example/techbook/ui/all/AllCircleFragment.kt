@@ -1,4 +1,4 @@
-package com.example.techbook.ui
+package com.example.techbook.ui.all
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.techbook.R
-import com.example.techbook.adapter.CircleRecyclerViewAdapter
+import com.example.techbook.ui.adapter.CircleAPIRecyclerViewAdapter
 import com.example.techbook.data.api.service.CircleInterface
 import com.example.techbook.data.api.service.circleService
 import com.example.techbook.data.db.AppDatabase
@@ -23,7 +23,12 @@ class AllCircleFragment : Fragment() {
 
     private val circleInterface by lazy { circleService() }
     private val appDatabase by lazy { AppDatabase.get(requireContext()) }
-    private val viewModelFactory by lazy { Factory(circleInterface, appDatabase) }
+    private val viewModelFactory by lazy {
+        Factory(
+            circleInterface,
+            appDatabase
+        )
+    }
     private lateinit var viewModel: AllCircleViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +53,7 @@ class AllCircleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CircleRecyclerViewAdapter(requireContext())
+        val adapter = CircleAPIRecyclerViewAdapter(requireContext())
 
 //        adapter.putView(viewModel)
 
@@ -74,7 +79,10 @@ class AllCircleFragment : Fragment() {
         @Suppress("UNCHECKED CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(AllCircleViewModel::class.java)){
-                return AllCircleViewModel(circleInterface, appDatabase) as T
+                return AllCircleViewModel(
+                    circleInterface,
+                    appDatabase
+                ) as T
             }
             throw IllegalArgumentException("Unknown class name")
         }

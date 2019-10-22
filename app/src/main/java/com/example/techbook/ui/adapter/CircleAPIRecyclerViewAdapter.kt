@@ -1,4 +1,4 @@
-package com.example.techbook.adapter
+package com.example.techbook.ui.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
 import com.example.techbook.data.api.entity.CircleEntity
@@ -16,8 +15,8 @@ import com.example.techbook.ui.MainActivity
 import com.example.techbook.viewmodel.CircleViewModel
 import com.squareup.picasso.Picasso
 
-class CircleRecyclerViewAdapter (private val context: Context):
-    RecyclerView.Adapter<CircleRecyclerViewAdapter.QiitaViewHolder>() {
+class CircleAPIRecyclerViewAdapter (private val context: Context):
+    RecyclerView.Adapter<CircleAPIRecyclerViewAdapter.QiitaViewHolder>() {
 
     private var mContext: Context? = null
     private  lateinit var circleViewModel: CircleViewModel

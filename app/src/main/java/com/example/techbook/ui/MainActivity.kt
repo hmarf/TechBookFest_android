@@ -4,6 +4,10 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.techbook.R
+import com.example.techbook.ui.all.AllCircleFragment
+import com.example.techbook.ui.like.likeCircleFragment
+import com.example.techbook.ui.serch.searchBottonFragment
+import com.example.techbook.ui.webview.webViewFragment
 
 class MainActivity : AppCompatActivity(), webViewFragment.Listner {
 
@@ -23,7 +27,9 @@ class MainActivity : AppCompatActivity(), webViewFragment.Listner {
         when (item.itemId) {
             R.id.navigation_home -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, allCircleFragment())
+                    .replace(R.id.frameLayout,
+                        AllCircleFragment()
+                    )
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -62,7 +68,7 @@ class MainActivity : AppCompatActivity(), webViewFragment.Listner {
                 .commit()
         } else{
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, allCircleFragment())
+                .replace(R.id.frameLayout, AllCircleFragment())
                 .commit()
         }
     }

@@ -1,7 +1,5 @@
-package com.example.techbook.ui
+package com.example.techbook.ui.webview
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
-import com.example.techbook.adapter.CircleRecyclerViewAdapter
-import kotlin.concurrent.thread
 
 class webViewFragment : Fragment() {
 
