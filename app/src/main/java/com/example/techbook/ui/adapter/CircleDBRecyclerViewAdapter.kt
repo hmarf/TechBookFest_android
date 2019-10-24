@@ -1,4 +1,4 @@
-package com.example.techbook.adapter
+package com.example.techbook.ui.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,28 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techbook.R
-import com.example.techbook.data.api.entity.CircleEntity
 import com.example.techbook.data.db.entity.CircleDB
 import com.example.techbook.ui.MainActivity
-import com.example.techbook.viewmodel.CircleViewModel
 import com.squareup.picasso.Picasso
 
-class CircleRecyclerViewAdapter (private val context: Context):
-    RecyclerView.Adapter<CircleRecyclerViewAdapter.QiitaViewHolder>() {
+class CircleDBRecyclerViewAdapter (private val context: Context):
+    RecyclerView.Adapter<CircleDBRecyclerViewAdapter.QiitaViewHolder>() {
 
     private var mContext: Context? = null
-    private  lateinit var circleViewModel: CircleViewModel
-    var mCircleData: MutableList<CircleEntity> = mutableListOf()
+    var mCircleData: MutableList<CircleDB> = mutableListOf()
 
     init {
         mContext = context
-    }
-
-    fun putView(aa: CircleViewModel){
-        circleViewModel = aa
     }
 
     override fun onBindViewHolder(holder: QiitaViewHolder, position: Int) {
@@ -49,9 +41,6 @@ class CircleRecyclerViewAdapter (private val context: Context):
             intent.putExtra("action","webview")
             intent.putExtra("URL", url)
             context.startActivity(intent)
-        }
-        holder.circleImage.setOnClickListener {
-            circleViewModel.insertData(convertData(mCircleData[position]))
         }
     }
 
@@ -74,25 +63,10 @@ class CircleRecyclerViewAdapter (private val context: Context):
 
     override fun getItemCount(): Int = mCircleData.size
 
-    fun setQiitaData(user: List<CircleEntity>){
+    fun setData(user: List<CircleDB>){
         Log.v("aaaa","ok")
         this.mCircleData = user.toMutableList()
         notifyDataSetChanged()
-    }
-
-    fun convertData(data: CircleEntity):CircleDB{
-        val returnData = CircleDB()
-        Log.v("result",data.toString())
-        returnData!!.uid = data.id
-        returnData!!.circle = data.circle
-        returnData!!.circleURL = data.circleURL
-        returnData!!.circleImage = data.circleImage
-        returnData!!.arr = data.arr
-        returnData!!.genere = data.genere
-        returnData!!.keyword = data.keyword
-        returnData!!.title = data.title
-        returnData!!.content = data.content
-        return returnData
     }
 
 }

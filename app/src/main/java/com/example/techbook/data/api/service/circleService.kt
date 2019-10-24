@@ -1,10 +1,11 @@
 package com.example.techbook.data.api.service
 
 import com.example.techbook.data.api.entity.CircleEntityResult
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -13,15 +14,16 @@ import retrofit2.http.Query
 interface CircleInterface {
 
     @GET("/")
-    fun circleAll(): Call<CircleEntityResult>
+    fun circleAll(): Deferred<CircleEntityResult>
 
     @GET("/searchCircle")
     fun circleSearch(
         @Query("keyword")
-        keyword: String): Call<CircleEntityResult>
+        keyword: String
+    ): Deferred<CircleEntityResult>
 }
 
-fun CircleService(): CircleInterface {
+fun circleService(): CircleInterface {
 
     val url = "http://localhost:8111"
     val okHttpClient = OkHttpClient.Builder().build()
@@ -30,6 +32,7 @@ fun CircleService(): CircleInterface {
     val retrofit = Retrofit.Builder()
         .baseUrl(url)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .client(okHttpClient)
         .build()
 

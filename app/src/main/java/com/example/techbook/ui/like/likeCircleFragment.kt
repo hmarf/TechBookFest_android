@@ -1,12 +1,9 @@
-package com.example.techbook.ui
+package com.example.techbook.ui.like
 
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
-import androidx.lifecycle.viewModelScope
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.techbook.R
-import com.example.techbook.adapter.CircleDBRecyclerViewAdapter
-import com.example.techbook.adapter.CircleRecyclerViewAdapter
+import com.example.techbook.ui.adapter.CircleDBRecyclerViewAdapter
 import com.example.techbook.data.db.entity.CircleDB
 import com.example.techbook.viewmodel.CircleViewModel
 
